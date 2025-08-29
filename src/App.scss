@@ -1,0 +1,393 @@
+/* Reset de base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Variables de couleur */
+:root {
+  /* Identité */
+  --color-primary: #1F6F70;   /* vert pétrole */
+  --color-bg: #FFFFFF;        /* fond clair */
+  --color-text: #222222;      /* texte principal */
+  --color-text-muted: #777777;/* texte secondaire */
+
+  /* Statuts de progression */
+  --color-progress-early: #1F6F70;  /* début → cohérent avec primary */
+  --color-progress-mid: #F5B82E;    /* jaune */
+  --color-progress-late: #F28C38;   /* orange */
+  --color-progress-overdue: #E64C3C;/* rouge */
+
+  /* UI neutre */
+  --color-border: #E5E5E5;   /* bordures / séparateurs */
+  --color-bg-muted: #F9F9F9; /* fond secondaire */
+}
+
+/* Typographie globale */
+html, body {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background: var(--color-bg-muted);
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+/* Liens */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/* App container */
+.App {
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Boutons */
+button {
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.5rem 1rem;
+  transition: background 0.2s ease, transform 0.1s ease;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Inputs & Textareas */
+input, textarea {
+  font-family: inherit;
+  font-size: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(31, 111, 112, 0.15);
+  }
+}
+
+/* Cartes (panneaux blancs) */
+.card {
+  background: var(--color-bg);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+/* Barre de progression générique */
+.progress {
+  height: 0.5rem;
+  background: var(--color-border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+
+  &-bar {
+    height: 100%;
+    transition: width 0.3s ease;
+  }
+  &-early { background: var(--color-progress-early); }
+  &-mid { background: var(--color-progress-mid); }
+  &-late { background: var(--color-progress-late); }
+  &-overdue { background: var(--color-progress-overdue); }
+}
+
+/* Layout dashboard */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+
+  &-2 { grid-template-columns: 2fr 1fr; }
+  &-3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Petits helpers */
+.text-muted { color: var(--color-text-muted); }
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-3 { margin-top: 0.75rem; }
+.mt-4 { margin-top: 1rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 0.75rem; }
+.mb-4 { margin-bottom: 1rem; }
+
+/* ============================================================
+   Ajouts pour Home / Header / Badges / Boutons variantes
+   ============================================================ */
+
+/* Topbar */
+.app-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: .75rem;
+
+  .logout-btn {
+    background: var(--color-bg);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 8px 12px;
+
+    &:hover { background: #fafafa; }
+  }
+}
+
+/* Titre/sous-titre */
+.app-title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -.02em;
+}
+.app-subtitle {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+/* Badges de stats */
+.badge {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  padding: .4rem .6rem;
+  border-radius: 999px;
+  font-size: .9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,.04);
+
+  &__dot {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+}
+
+/* Boutons génériques (classes utilitaires) */
+.btn {
+  appearance: none;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  padding: .55rem .8rem;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .06s ease, background .2s ease, border-color .2s;
+
+  &:hover { background: #fafafa; border-color: #ddd; }
+  &:active { transform: scale(.98); }
+
+  &--primary {
+    border-color: transparent;
+    background: var(--color-primary);
+    color: var(--color-bg);
+
+    &:hover { filter: brightness(1.03); }
+  }
+}
+
+/* Formulaires (sections latérales) */
+.form {
+  display: grid;
+  gap: .75rem;
+
+  label {
+    font-size: .95rem;
+    display: block;
+
+    .hint {
+      font-size: .8rem;
+      color: var(--color-text-muted);
+      margin-top: .25rem;
+    }
+  }
+
+  .actions {
+    margin-top: .25rem;
+
+    .btn {
+      width: 100%;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+  }
+}
+
+/* ============================================================
+   Calendrier (classes utilisées par home.js)
+   ============================================================ */
+
+/* ============================================================
+   Calendrier (corrigé)
+   ============================================================ */
+
+.calendar {
+  &.card { padding: 1rem; }
+
+  &__toolbar {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: .5rem;
+    .calendar__month { font-weight: 700; letter-spacing: .3px; }
+  }
+
+  &__weekdays {
+    display: grid; grid-template-columns: repeat(7, 1fr);
+    font-size: 12px; color: var(--color-text-muted); margin-bottom: 4px;
+    > div { text-align: center; padding: 6px 0; }
+  }
+
+  &__grid {
+    display: grid; grid-template-columns: repeat(7, 1fr);
+    gap: 1px; background: var(--color-border); border-radius: 12px; overflow: hidden;
+  }
+
+  &__cell {
+    min-height: 90px; background: var(--color-bg); padding: 8px;
+    &--other { background: #F4F6F8; }
+  }
+
+  &__date {
+    font-size: 12px; color: var(--color-text-muted);
+    &--muted { color: #C0C6CC; }
+  }
+
+  &__dots { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+
+  /* IMPORTANT: pas de couleur par défaut ici */
+  &__dot {
+    display: inline-block;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: transparent;
+  }
+
+  &__counter { font-size: 10px; color: #98A2A8; }
+
+  .legend {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    margin-top: 12px; font-size: 12px; color: var(--color-text-muted);
+    i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  }
+}
+
+/* Palette variée (spécificité renforcée) */
+.calendar__dot.dot-1 { background: #1F6F70; } /* vert bouteille */
+.calendar__dot.dot-2 { background: #F5B82E; } /* jaune */
+.calendar__dot.dot-3 { background: #F28C38; } /* orange */
+.calendar__dot.dot-4 { background: #E64C3C; } /* rouge */
+.calendar__dot.dot-5 { background: #4CAF50; } /* vert clair */
+.calendar__dot.dot-6 { background: #3F51B5; } /* indigo */
+.calendar__dot.dot-7 { background: #9C27B0; } /* violet */
+
+
+/* ============================================================
+   Panneaux latéraux: Quick Add & Liste des plantes
+   ============================================================ */
+
+.section-title {
+  font-weight: 700;
+  margin-bottom: .5rem;
+}
+
+.quick-add {
+  .form {
+    .btn {
+      background: var(--color-primary);
+      color: var(--color-bg);
+    }
+  }
+}
+
+.plant-list {
+  .empty {
+    color: var(--color-text-muted);
+  }
+
+  .plant-card {
+    padding: 12px;
+    border-radius: 16px;
+
+    .plant-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+
+      .plant-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+
+        .dot {
+          width: 10px; height: 10px; border-radius: 50%;
+        }
+      }
+
+      .delete-btn {
+        color: var(--color-progress-overdue);
+        background: transparent;
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: 4px 8px;
+
+        &:hover { background: #fff5f5; }
+      }
+    }
+
+    .plant-sub {
+      margin-top: 2px;
+      font-size: 12px;
+      color: var(--color-text-muted);
+    }
+
+    .plant-controls {
+      margin-top: 8px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 12px;
+      color: var(--color-text-muted);
+
+      label {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+
+        input[type='number'] { width: 80px; }
+      }
+    }
+  }
+}
+
+/* ============================================================
+   Responsive tweaks
+   ============================================================ */
+@media (max-width: 900px) {
+  .container { padding: 1.25rem .75rem; }
+  .app-title { font-size: 22px; }
+  .grid-2 { grid-template-columns: 1fr; }
+}
