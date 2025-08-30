@@ -535,6 +535,8 @@ progress.progressbar.overdue::-moz-progress-bar {
   padding: 12px;
   border-radius: 16px;
   background: var(--color-bg);
+  margin-bottom:10px;
+  border:1px solid rgba(0, 0, 0, 0.514);
 }
 
 .plant-card .plant-head {
