@@ -34,12 +34,6 @@ body {
   color: var(--color-text);
   line-height: 1.5;
 }
-.logo{
-  height:80px;
-  border-radius:50%;
-  background:white;
-  border:2px solid white;
-}
 /* Images/iframes jamais plus larges que le conteneur */
 img,
 iframe,
@@ -241,10 +235,19 @@ select:focus {
    Topbar / Header
    ============================================================ */
 .app-topbar {
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+  .logo {
+    height: 80px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid white;
+    margin: 10px;
+  }
 }
 
 .page-header .app-title {
