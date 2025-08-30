@@ -6,25 +6,25 @@ import { createClient } from '@supabase/supabase-js';
 
 // ---------- Lazy singleton ----------
 let _supabase = null;
+
 export function getSupabase() {
   if (_supabase) return _supabase;
 
-  const supabaseUrl = 'https://ndhwctlrgzjgwllbmmtx.supabase.co';
-  const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5kaHdjdGxyZ3pqZ3dsbGJtbXR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY0Nzk3MTgsImV4cCI6MjA3MjA1NTcxOH0.pVAjgRXITDN7qg7BogYjIQz3bdcGRmAY76SG3C2edQM';
+  const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
+  const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
 
   if (!supabaseUrl || !supabaseAnonKey) {
-    // eslint-disable-next-line no-console
-    console.warn('[Supabase] REACT_APP_SUPABASE_URL / REACT_APP_SUPABASE_ANON_KEY manquants');
+    console.error('[Supabase] Variables manquantes: REACT_APP_SUPABASE_URL / REACT_APP_SUPABASE_ANON_KEY');
+    throw new Error('Clés Supabase manquantes dans les variables d’environnement.');
   }
 
   _supabase = createClient(supabaseUrl, supabaseAnonKey, {
     auth: {
       persistSession: true,
-      storageKey: 'planttracker-auth',
       autoRefreshToken: true,
-      detectSessionInUrl: true,
     },
   });
+
   return _supabase;
 }
 
@@ -169,4 +169,88 @@ export async function subscribePlants(onChange) {
     .subscribe();
 
   return () => supabase.removeChannel(channel);
+}
+
+// --- dans src/callAPI/callAPI.js ---
+
+// Renvoie le user courant (ou null)
+export async function getCurrentUser() {
+  const supabase = getSupabase();
+  const { data, error } = await supabase.auth.getUser();
+  if (error) throw error;
+  return data?.user ?? null;
+}
+// Profile CRUD (table 'profiles': id uuid (pk) = auth.uid, username, first_name, last_name)
+export async function getProfile() {
+  const supabase = getSupabase();
+  const user = await getCurrentUser();
+  if (!user) return null;
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('username, first_name, last_name')
+    .eq('id', user.id)
+    .maybeSingle();
+  if (error) throw error;
+  return data;
+}
+
+export async function upsertProfile({ username, first_name, last_name }) {
+  const supabase = getSupabase();
+  const user = await getCurrentUser();
+  if (!user) throw new Error('Non connecté');
+  const payload = {
+    id: user.id,
+    username: username ?? null,
+    first_name: first_name ?? null,
+    last_name: last_name ?? null,
+    updated_at: new Date().toISOString()
+  };
+  const { error } = await supabase.from('profiles').upsert(payload, { onConflict: 'id' });
+  if (error) throw error;
+  return true;
+}
+
+// Email / Password
+export async function updateEmail(newEmail) {
+  const supabase = getSupabase();
+  const { data, error } = await supabase.auth.updateUser({
+    email: newEmail
+    // optionnel: emailRedirectTo: window.location.origin
+  });
+  if (error) throw error;
+  return data;
+}
+
+export async function updatePassword(newPassword) {
+  const supabase = getSupabase();
+  const { data, error } = await supabase.auth.updateUser({ password: newPassword });
+  if (error) throw error;
+  return data;
+}
+
+// Abonnement (table 'subscriptions': user_id uuid, plan text)
+export async function getSubscription() {
+  const supabase = getSupabase();
+  const user = await getCurrentUser();
+  if (!user) return null;
+  const { data, error } = await supabase
+    .from('subscriptions')
+    .select('plan')
+    .eq('user_id', user.id)
+    .maybeSingle();
+  if (error) throw error;
+  return data || { plan: 'free' };
+}
+
+export async function updateSubscription(plan) {
+  const supabase = getSupabase();
+  const user = await getCurrentUser();
+  if (!user) throw new Error('Non connecté');
+  const { error } = await supabase.from('subscriptions').upsert({
+    user_id: user.id,
+    plan,
+    updated_at: new Date().toISOString()
+  }, { onConflict: 'user_id' });
+  if (error) throw error;
+  return true;
 }
