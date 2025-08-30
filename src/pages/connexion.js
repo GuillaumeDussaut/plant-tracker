@@ -1,7 +1,7 @@
 // src/pages/connexion.js
 import React, { useMemo, useState } from 'react';
 import { signInWithEmail, signInWithMagicLink } from '../callAPI/callAPI';
-import Logo from '../assets/logo.png';
+
 function validateEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
@@ -177,5 +177,6 @@ export default function Connexion() {
     )
   );
 }
+
 
 
