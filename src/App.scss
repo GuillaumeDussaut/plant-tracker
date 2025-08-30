@@ -118,7 +118,7 @@ select:focus {
 }
 .main_home_container {
   min-height: 100vh;
-  background: var(--color-bg-muted);
+  background: var(--color-primary);
 }
 
 .loading_gate,
@@ -246,10 +246,11 @@ select:focus {
   font-size: 28px;
   font-weight: 800;
   letter-spacing: -0.02em;
+   color:#FFF;
 }
 .page-header .app-subtitle {
   font-size: 13px;
-  color: var(--color-text-muted);
+  color: #FFF;
 }
 .page-header .badges {
   margin-top: 0.5rem;
