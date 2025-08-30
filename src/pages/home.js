@@ -1,5 +1,6 @@
 // src/pages/Home.jsx
 import React, { useEffect, useMemo, useState } from 'react';
+import Logo from '../assets/logo.png';
 import {
   getSupabase,
   signOut,
@@ -361,6 +362,7 @@ export default function Home() {
     </div>
   );
 }
+
 
 
 
