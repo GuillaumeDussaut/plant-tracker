@@ -1,7 +1,7 @@
 // src/pages/connexion.js
 import React, { useMemo, useState } from 'react';
 import { signInWithEmail, signInWithMagicLink } from '../callAPI/callAPI';
-
+import Logo from '../assets/logo.png';
 function validateEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
@@ -85,6 +85,7 @@ export default function Connexion() {
   }
 
   return React.createElement(
+    
     'div',
     { className: 'w-full max-w-md bg-white rounded-2xl shadow p-6' },
 
@@ -176,4 +177,5 @@ export default function Connexion() {
     )
   );
 }
+
 
