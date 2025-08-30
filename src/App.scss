@@ -1,120 +1,137 @@
-/* Reset de base */
+/* ============================================================
+   Reset & Variables
+   ============================================================ */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Variables de couleur */
 :root {
   /* Identité */
-  --color-primary: #1F6F70;   /* vert pétrole */
-  --color-bg: #FFFFFF;        /* fond clair */
-  --color-text: #222222;      /* texte principal */
-  --color-text-muted: #777777;/* texte secondaire */
+  --color-primary: #1f6f70;
+  --color-bg: #fffcfc;
+  --color-text: #222222;
+  --color-text-muted: #777777;
 
   /* Statuts de progression */
-  --color-progress-early: #1F6F70;  /* début → cohérent avec primary */
-  --color-progress-mid: #F5B82E;    /* jaune */
-  --color-progress-late: #F28C38;   /* orange */
-  --color-progress-overdue: #E64C3C;/* rouge */
+  --color-progress-early: #1f6f70;
+  --color-progress-mid: #f5b82e;
+  --color-progress-late: #f28c38;
+  --color-progress-overdue: #e64c3c;
 
   /* UI neutre */
-  --color-border: #E5E5E5;   /* bordures / séparateurs */
-  --color-bg-muted: #F9F9F9; /* fond secondaire */
+  --color-border: #e5e5e5;
+  --color-bg-muted: #e6dcdc;
 }
 
-/* Typographie globale */
-html, body {
+html,
+body {
   height: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   background: var(--color-bg-muted);
   color: var(--color-text);
   line-height: 1.5;
 }
 
-/* Liens */
+/* Images/iframes jamais plus larges que le conteneur */
+img,
+iframe,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ============================================================
+   Links / Buttons / Inputs
+   ============================================================ */
 a {
   color: var(--color-primary);
   text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
+}
+a:hover {
+  text-decoration: underline;
 }
 
-/* App container */
-.App {
-  text-align: center;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Boutons */
 button {
   font-family: inherit;
   font-size: 1rem;
   cursor: pointer;
   border: none;
   border-radius: 0.75rem;
-  padding: 0.5rem 1rem;
-  transition: background 0.2s ease, transform 0.1s ease;
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-  &:active {
-    transform: scale(0.98);
-  }
+  padding: 0.6rem 1rem;
+  transition: background 0.2s ease, transform 0.1s ease, opacity 0.2s ease;
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+button:active {
+  transform: scale(0.98);
 }
 
-/* Inputs & Textareas */
-input, textarea {
+.logout-btn {
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 8px 12px;
+  transition: background 0.2s ease, border-color 0.2s ease,
+    outline-color 0.2s ease;
+}
+.logout-btn:hover {
+  background: #fafafa;
+  border-color: var(--color-text);
+  outline: 2px solid var(--color-text);
+  outline-offset: 0;
+}
+
+input,
+textarea,
+select {
   font-family: inherit;
   font-size: 1rem;
   border: 1px solid var(--color-border);
   border-radius: 0.75rem;
-  padding: 0.5rem 0.75rem;
+  padding: 0.6rem 0.8rem;
   outline: none;
-  transition: border-color 0.2s ease;
-
-  &:focus {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 2px rgba(31, 111, 112, 0.15);
-  }
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+}
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(31, 111, 112, 0.15);
 }
 
-/* Cartes (panneaux blancs) */
-.card {
-  background: var(--color-bg);
-  border-radius: 1rem;
-  padding: 1.5rem;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+/* ============================================================
+   App containers & helpers
+   ============================================================ */
+.App {
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.main_home_container {
+  min-height: 100vh;
+  background: var(--color-bg-muted);
 }
 
-/* Barre de progression générique */
-.progress {
-  height: 0.5rem;
-  background: var(--color-border);
-  border-radius: 0.5rem;
-  overflow: hidden;
-
-  &-bar {
-    height: 100%;
-    transition: width 0.3s ease;
-  }
-  &-early { background: var(--color-progress-early); }
-  &-mid { background: var(--color-progress-mid); }
-  &-late { background: var(--color-progress-late); }
-  &-overdue { background: var(--color-progress-overdue); }
+.loading_gate,
+.anon_gate {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-muted);
 }
 
-/* Layout dashboard */
 .container {
-  max-width: 1200px;
+  max-width: min(1200px, 100%);
   margin: 0 auto;
   padding: 2rem 1rem;
 }
@@ -122,272 +139,511 @@ input, textarea {
 .grid {
   display: grid;
   gap: 1.5rem;
-
-  &-2 { grid-template-columns: 2fr 1fr; }
-  &-3 { grid-template-columns: repeat(3, 1fr); }
+  width: 100%;
+}
+.grid-2 {
+  grid-template-columns: 2fr 1fr;
+}
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
 }
 
-/* Petits helpers */
-.text-muted { color: var(--color-text-muted); }
-.mt-1 { margin-top: 0.25rem; }
-.mt-2 { margin-top: 0.5rem; }
-.mt-3 { margin-top: 0.75rem; }
-.mt-4 { margin-top: 1rem; }
-.mb-2 { margin-bottom: 0.5rem; }
-.mb-3 { margin-bottom: 0.75rem; }
-.mb-4 { margin-bottom: 1rem; }
-
-/* ============================================================
-   Ajouts pour Home / Header / Badges / Boutons variantes
-   ============================================================ */
-
-/* Topbar */
-.app-topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: .75rem;
-
-  .logout-btn {
-    background: var(--color-bg);
-    color: var(--color-text);
-    border: 1px solid var(--color-border);
-    border-radius: 12px;
-    padding: 8px 12px;
-
-    &:hover { background: #fafafa; }
-  }
-}
-
-/* Titre/sous-titre */
-.app-title {
-  font-size: 28px;
-  font-weight: 800;
-  letter-spacing: -.02em;
-}
-.app-subtitle {
-  font-size: 13px;
+.text-muted {
   color: var(--color-text-muted);
 }
+.mt-1 {
+  margin-top: 0.25rem;
+}
+.mt-2 {
+  margin-top: 0.5rem;
+}
+.mt-3 {
+  margin-top: 0.75rem;
+}
+.mt-4 {
+  margin-top: 1rem;
+}
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+.mb-3 {
+  margin-bottom: 0.75rem;
+}
+.mb-4 {
+  margin-bottom: 1rem;
+}
 
-/* Badges de stats */
+/* ============================================================
+   Cards / Badges / Buttons
+   ============================================================ */
+.card {
+  background: var(--color-bg);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  text-align: left;
+}
+
 .badge {
   background: #fff;
   border: 1px solid var(--color-border);
-  padding: .4rem .6rem;
+  padding: .45rem .65rem;
+  line-height: 1; 
   border-radius: 999px;
-  font-size: .9rem;
+  font-size: 0.9rem;
   display: inline-flex;
   align-items: center;
-  gap: .5rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,.04);
-
-  &__dot {
-    width: 10px; height: 10px; border-radius: 50%;
-  }
+  gap: 0.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+.badge__dot,
+.calendar__dot,
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
 }
 
-/* Boutons génériques (classes utilitaires) */
 .btn {
   appearance: none;
   border: 1px solid var(--color-border);
   background: var(--color-bg);
   color: var(--color-text);
-  padding: .55rem .8rem;
+  padding: 0.55rem 0.8rem;
   border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: transform .06s ease, background .2s ease, border-color .2s;
-
-  &:hover { background: #fafafa; border-color: #ddd; }
-  &:active { transform: scale(.98); }
-
-  &--primary {
-    border-color: transparent;
-    background: var(--color-primary);
-    color: var(--color-bg);
-
-    &:hover { filter: brightness(1.03); }
-  }
+  transition: transform 0.06s ease, background 0.2s ease, border-color 0.2s;
+}
+.btn:hover {
+  background: #fafafa;
+  border-color: #ddd;
+}
+.btn:active {
+  transform: scale(0.98);
+}
+.btn--primary {
+  border-color: transparent;
+  background: var(--color-primary);
+  color: var(--color-bg);
+}
+.btn--primary:hover {
+  filter: brightness(1.03);
 }
 
-/* Formulaires (sections latérales) */
-.form {
+/* ============================================================
+   Topbar / Header
+   ============================================================ */
+.app-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.page-header .app-title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.page-header .app-subtitle {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+.page-header .badges {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+/* ============================================================
+   Progress (custom + élément natif)
+   ============================================================ */
+.progress {
+  height: 0.5rem;
+  background: var(--color-border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+.progress-early {
+  background: var(--color-progress-early);
+}
+.progress-mid {
+  background: var(--color-progress-mid);
+}
+.progress-late {
+  background: var(--color-progress-late);
+}
+.progress-overdue {
+  background: var(--color-progress-overdue);
+}
+
+/* <progress> natif stylé (si utilisé) */
+progress.progressbar {
+  width: 100%;
+  height: 8px;
+  appearance: none;
+}
+progress.progressbar::-webkit-progress-bar {
+  background: var(--color-border);
+  border-radius: 6px;
+}
+progress.progressbar::-webkit-progress-value {
+  border-radius: 6px;
+  background: var(--color-progress-early);
+}
+progress.progressbar.mid::-webkit-progress-value {
+  background: var(--color-progress-mid);
+}
+progress.progressbar.late::-webkit-progress-value {
+  background: var(--color-progress-late);
+}
+progress.progressbar.overdue::-webkit-progress-value {
+  background: var(--color-progress-overdue);
+}
+progress.progressbar::-moz-progress-bar {
+  background: var(--color-progress-early);
+  border-radius: 6px;
+}
+progress.progressbar.mid::-moz-progress-bar {
+  background: var(--color-progress-mid);
+}
+progress.progressbar.late::-moz-progress-bar {
+  background: var(--color-progress-late);
+}
+progress.progressbar.overdue::-moz-progress-bar {
+  background: var(--color-progress-overdue);
+}
+
+/* ============================================================
+   Calendrier
+   ============================================================ */
+.calendar.card {
+  padding: 1rem;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.calendar__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  gap:8px;
+}
+.calendar__month {
+  flex: 1;
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+
+.calendar__weekdays {
   display: grid;
-  gap: .75rem;
+  grid-template-columns: repeat(7, 1fr);
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
+}
+.calendar__weekdays > div {
+  text-align: center;
+  padding: 6px 0;
+}
 
-  label {
-    font-size: .95rem;
-    display: block;
+.calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  background: var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
 
-    .hint {
-      font-size: .8rem;
-      color: var(--color-text-muted);
-      margin-top: .25rem;
-    }
-  }
+.calendar__cell {
+  min-height: 90px;
+  padding: 8px;
+  min-width: 0;
+  background: var(--color-bg);
+}
+.calendar__cell--other {
+  background: #f4f6f8;
+}
+.calendar__toolbar .btn {
+  border-radius: 999px;
+  padding: 6px 10px;
+  line-height: 1;
+  min-width: auto;
+}
+.calendar__toolbar .btn:first-child,
+.calendar__toolbar .btn:last-child {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;          /* taille des flèches */
+}
+.calendar__toolbar .btn:hover {
+  background: #fafafa;
+  border-color: #dcdcdc;
+}
+.calendar__date {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+.calendar__date--muted {
+  color: #c0c6cc;
+}
 
-  .actions {
-    margin-top: .25rem;
+.calendar__dots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+}
+.calendar__dot {
+  background: transparent;
+} /* couleur via .dot-n */
+.calendar__counter {
+  font-size: 10px;
+  color: #98a2a8;
+}
 
-    .btn {
-      width: 100%;
-      border-radius: 12px;
-      font-weight: 700;
-    }
-  }
+.calendar .legend {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+.legend .legend-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.legend .legend-dot.early {
+  background: var(--color-progress-early);
+}
+.legend .legend-dot.mid {
+  background: var(--color-progress-mid);
+}
+.legend .legend-dot.late {
+  background: var(--color-progress-late);
+}
+.legend .legend-dot.overdue {
+  background: var(--color-progress-overdue);
+}
+
+/* Palette dots (header, calendrier, global) */
+.badge__dot.dot-1,
+.calendar__dot.dot-1,
+.dot.dot-1 {
+  background: #1f6f70;
+}
+.badge__dot.dot-2,
+.calendar__dot.dot-2,
+.dot.dot-2 {
+  background: #f5b82e;
+}
+.badge__dot.dot-3,
+.calendar__dot.dot-3,
+.dot.dot-3 {
+  background: #f28c38;
+}
+.badge__dot.dot-4,
+.calendar__dot.dot-4,
+.dot.dot-4 {
+  background: #e64c3c;
+}
+.badge__dot.dot-5,
+.calendar__dot.dot-5,
+.dot.dot-5 {
+  background: #4caf50;
+}
+.badge__dot.dot-6,
+.calendar__dot.dot-6,
+.dot.dot-6 {
+  background: #3f51b5;
+}
+.badge__dot.dot-7,
+.calendar__dot.dot-7,
+.dot.dot-7 {
+  background: #9c27b0;
 }
 
 /* ============================================================
-   Calendrier (classes utilisées par home.js)
+   Quick Add & Liste des plantes
    ============================================================ */
-
-/* ============================================================
-   Calendrier (corrigé)
-   ============================================================ */
-
-.calendar {
-  &.card { padding: 1rem; }
-
-  &__toolbar {
-    display: flex; align-items: center; justify-content: space-between; margin-bottom: .5rem;
-    .calendar__month { font-weight: 700; letter-spacing: .3px; }
-  }
-
-  &__weekdays {
-    display: grid; grid-template-columns: repeat(7, 1fr);
-    font-size: 12px; color: var(--color-text-muted); margin-bottom: 4px;
-    > div { text-align: center; padding: 6px 0; }
-  }
-
-  &__grid {
-    display: grid; grid-template-columns: repeat(7, 1fr);
-    gap: 1px; background: var(--color-border); border-radius: 12px; overflow: hidden;
-  }
-
-  &__cell {
-    min-height: 90px; background: var(--color-bg); padding: 8px;
-    &--other { background: #F4F6F8; }
-  }
-
-  &__date {
-    font-size: 12px; color: var(--color-text-muted);
-    &--muted { color: #C0C6CC; }
-  }
-
-  &__dots { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
-
-  /* IMPORTANT: pas de couleur par défaut ici */
-  &__dot {
-    display: inline-block;
-    width: 10px; height: 10px; border-radius: 50%;
-    background: transparent;
-  }
-
-  &__counter { font-size: 10px; color: #98A2A8; }
-
-  .legend {
-    display: flex; gap: 12px; flex-wrap: wrap;
-    margin-top: 12px; font-size: 12px; color: var(--color-text-muted);
-    i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-  }
-}
-
-/* Palette variée (spécificité renforcée) */
-.calendar__dot.dot-1 { background: #1F6F70; } /* vert bouteille */
-.calendar__dot.dot-2 { background: #F5B82E; } /* jaune */
-.calendar__dot.dot-3 { background: #F28C38; } /* orange */
-.calendar__dot.dot-4 { background: #E64C3C; } /* rouge */
-.calendar__dot.dot-5 { background: #4CAF50; } /* vert clair */
-.calendar__dot.dot-6 { background: #3F51B5; } /* indigo */
-.calendar__dot.dot-7 { background: #9C27B0; } /* violet */
-
-
-/* ============================================================
-   Panneaux latéraux: Quick Add & Liste des plantes
-   ============================================================ */
-
 .section-title {
   font-weight: 700;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
-.quick-add {
-  .form {
-    .btn {
-      background: var(--color-primary);
-      color: var(--color-bg);
-    }
-  }
+.form {
+  display: grid;
+  gap: 0.75rem;
+}
+.form label {
+  font-size: 0.95rem;
+  display: block;
+}
+.form label .hint {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-top: 0.25rem;
+}
+.form .actions {
+  margin-top: 0.25rem;
+}
+.form .actions .btn {
+  width: 100%;
+  border-radius: 12px;
+  font-weight: 700;
 }
 
-.plant-list {
-  .empty {
-    color: var(--color-text-muted);
-  }
+.quick-add .form .btn {
+  background: var(--color-primary);
+  color: var(--color-bg);
+}
 
-  .plant-card {
-    padding: 12px;
-    border-radius: 16px;
+.plant-list .empty {
+  color: var(--color-text-muted);
+}
 
-    .plant-head {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 8px;
+.plant-card {
+  padding: 12px;
+  border-radius: 16px;
+  background: var(--color-bg);
+}
 
-      .plant-title {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-weight: 600;
+.plant-card .plant-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+.plant-card .plant-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+.plant-card .delete-btn {
+  color: var(--color-progress-overdue);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+.plant-card .delete-btn:hover {
+  background: #fff5f5;
+}
 
-        .dot {
-          width: 10px; height: 10px; border-radius: 50%;
-        }
-      }
+.plant-card .plant-sub {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
 
-      .delete-btn {
-        color: var(--color-progress-overdue);
-        background: transparent;
-        border: 1px solid var(--color-border);
-        border-radius: 8px;
-        padding: 4px 8px;
-
-        &:hover { background: #fff5f5; }
-      }
-    }
-
-    .plant-sub {
-      margin-top: 2px;
-      font-size: 12px;
-      color: var(--color-text-muted);
-    }
-
-    .plant-controls {
-      margin-top: 8px;
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      font-size: 12px;
-      color: var(--color-text-muted);
-
-      label {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-
-        input[type='number'] { width: 80px; }
-      }
-    }
-  }
+.plant-card .plant-controls {
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  flex-wrap: wrap;
+}
+.plant-card .plant-controls label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.plant-card .plant-controls input[type="number"] {
+  width: 80px;
 }
 
 /* ============================================================
-   Responsive tweaks
+   Responsive
    ============================================================ */
-@media (max-width: 900px) {
-  .container { padding: 1.25rem .75rem; }
-  .app-title { font-size: 22px; }
-  .grid-2 { grid-template-columns: 1fr; }
+/* Laptop ≤1024px : grille à 1 colonne */
+@media (max-width: 1024px) {
+  .grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+  .calendar__cell {
+    min-height: 90px;
+  }
+}
+
+/* Tablette ≤768px : 3-col → 2-col */
+@media (max-width: 768px) {
+  .grid-3 {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .page-header .app-title {
+    font-size: 24px;
+  }
+  .calendar__cell {
+    min-height: 80px;
+  }
+}
+
+/* Mobile ≤480px : 1 colonne + contrôles full width */
+@media (max-width: 480px) {
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .page-header .app-title {
+    font-size: 1.4rem;
+  }
+  .badge {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.55rem;
+  }
+
+  /* boutons & champs pleines largeur pour faciliter le tap */
+  button,
+  .btn,
+  input,
+  textarea,
+  select {
+    width: 100%;
+  }
+
+  .logout-btn {
+    width: 100%;
+  }
+
+  .card {
+    padding: 1rem;
+    max-width: 100%;
+  }
+  .calendar__cell {
+    min-height: 70px;
+    padding: 6px;
+  }
+
+  .plant-card .plant-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  .plant-card .plant-controls input {
+    width: 100%;
+  }
 }
