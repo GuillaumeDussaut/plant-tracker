@@ -169,10 +169,11 @@ export default function Connexion() {
     },
       'Pas encore de compte ? ',
       React.createElement('a', {
-        href: '/inscription',
+        href: '#/inscription',
         className: 'underline',
         style: { color: 'var(--color-primary, #1F6F70)' }
       }, 'Créer un compte')
     )
   );
 }
+
