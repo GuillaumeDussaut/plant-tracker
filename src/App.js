@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/home';
 import Connexion from './pages/connexion';
 import Inscription from './pages/inscription';
+import User from './pages/user';   // 👈 ajout
 
 import './App.scss';
 
@@ -18,12 +19,10 @@ export default function App() {
       React.createElement(
         Routes,
         null,
-        // Accueil : Home gère déjà "connecté vs non connecté"
         React.createElement(Route, {
           path: '/',
           element: React.createElement(Home),
         }),
-        // Pages auth explicites
         React.createElement(Route, {
           path: '/connexion',
           element: React.createElement(Connexion),
@@ -32,7 +31,10 @@ export default function App() {
           path: '/inscription',
           element: React.createElement(Inscription),
         }),
-        // Fallback → redirige vers /
+        React.createElement(Route, {
+          path: '/user', // 👈 plus simple que /UserProfile
+          element: React.createElement(User),
+        }),
         React.createElement(Route, {
           path: '*',
           element: React.createElement(Navigate, { to: '/' }),
@@ -41,4 +43,3 @@ export default function App() {
     )
   );
 }
-
