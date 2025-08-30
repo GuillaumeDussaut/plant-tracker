@@ -172,7 +172,7 @@ export default function Inscription() {
       },
         'Déjà inscrit ? ',
         React.createElement('a', {
-          href: '/connexion',
+          href: '/',
           className: 'underline',
           style: { color: 'var(--color-primary, #1F6F70)' }
         }, 'Se connecter')
@@ -180,3 +180,4 @@ export default function Inscription() {
     )
   );
 }
+
