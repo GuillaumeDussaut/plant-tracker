@@ -315,10 +315,17 @@ export default function Home() {
             {/* topbar */}
             <div className="app-topbar">
               <img className="logo" src={Logo} alt="Logo" />
-            <div />
-              <button className="logout-btn" onClick={async () => { await signOut(); window.location.reload(); }}>
+              <button
+                className="logout-btn"
+                onClick={async () => {
+                  await signOut();
+                  window.location.reload();
+                }}
+              >
                 Se déconnecter
               </button>
+
+              
             </div>
 
             {/* header + badges */}
@@ -362,6 +369,7 @@ export default function Home() {
     </div>
   );
 }
+
 
 
 
