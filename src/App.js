@@ -2,6 +2,8 @@
 import React from 'react';
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
+import HeaderBandeau from './components/bandeauHeader';
+
 import Home from './pages/home';
 import Connexion from './pages/connexion';
 import Inscription from './pages/inscription';
@@ -12,10 +14,11 @@ import './App.scss';
 export default function App() {
   return React.createElement(
     Router,
+    
     null,
     React.createElement(
       'div',
-      { className: 'App' },
+      { className: 'App' },<HeaderBandeau />,
       React.createElement(
         Routes,
         null,
