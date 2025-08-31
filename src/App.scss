@@ -34,6 +34,7 @@ body {
   color: var(--color-text);
   line-height: 1.5;
 }
+
 /* Images/iframes jamais plus larges que le conteneur */
 img,
 iframe,
@@ -72,7 +73,7 @@ button:active {
 }
 
 .logout-btn {
-   width:150px;
+  width:150px;
   background: var(--color-bg);
   color: var(--color-text);
   border: 1px solid var(--color-border);
@@ -119,8 +120,14 @@ select:focus {
 .main_home_container {
   min-height: 100vh;
   background: var(--color-primary);
+  
 }
+.backToHome {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: var(--color-primary);
 
+}
 .loading_gate,
 .anon_gate {
   min-height: 100vh;
@@ -187,8 +194,8 @@ select:focus {
 .badge {
   background: #fff;
   border: 1px solid var(--color-border);
-  padding: .45rem .65rem;
-  line-height: 1; 
+  padding: 0.45rem 0.65rem;
+  line-height: 1;
   border-radius: 999px;
   font-size: 0.9rem;
   display: inline-flex;
@@ -248,6 +255,7 @@ select:focus {
     background: white;
     border: 2px solid white;
     margin: 10px;
+
   }
 }
 
@@ -255,11 +263,11 @@ select:focus {
   font-size: 28px;
   font-weight: 800;
   letter-spacing: -0.02em;
-   color:#FFF;
+  color: #fff;
 }
 .page-header .app-subtitle {
   font-size: 13px;
-  color: #FFF;
+  color: #fff;
 }
 .page-header .badges {
   margin-top: 0.5rem;
@@ -346,13 +354,13 @@ progress.progressbar.overdue::-moz-progress-bar {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 0.5rem;
-  gap:8px;
+  gap: 8px;
 }
 .calendar__month {
   flex: 1;
   text-align: center;
   font-weight: 800;
-  letter-spacing: .2px;
+  letter-spacing: 0.2px;
 }
 
 .calendar__weekdays {
@@ -401,7 +409,7 @@ progress.progressbar.overdue::-moz-progress-bar {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;          /* taille des flèches */
+  font-size: 18px; /* taille des flèches */
 }
 .calendar__toolbar .btn:hover {
   background: #fafafa;
@@ -504,6 +512,30 @@ progress.progressbar.overdue::-moz-progress-bar {
 .form {
   display: grid;
   gap: 0.75rem;
+}
+.space-y-4{
+  width:310px;
+  margin:0 auto;
+  button{
+    width:240px;
+    margin-top:20px;
+  }
+}
+.logo_container{
+  width:100%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom:10px;
+}
+.logo_offline{
+  width:150px;
+}
+.min-h-screen{
+  margin-top:120px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
 }
 .form label {
   font-size: 0.95rem;
@@ -638,8 +670,8 @@ progress.progressbar.overdue::-moz-progress-bar {
   }
 
   .logout-btn {
-    width: 100%;
-     margin:10px;
+    width: 250px;
+    margin:10px;
   }
 
   .card {
