@@ -203,21 +203,21 @@ export default function User() {
           {/* Abonnement */}
           <section className="card">
             <h2 className="section-title">Abonnement</h2>
-            <form className="form" onSubmit={onSavePlan}>
+            <form className="plan-payant" onSubmit={onSavePlan}>
               <label>
                 <input type="radio" name="plan" value="free"
                        checked={plan === 'free'} onChange={() => setPlan('free')} />
-                Gratuit
+                Gratuit - 0€/mois
               </label>
               <label>
                 <input type="radio" name="plan" value="monthly"
                        checked={plan === 'monthly'} onChange={() => setPlan('monthly')} />
-                Mensuel
+                Mensuel - 4€/mois
               </label>
               <label>
                 <input type="radio" name="plan" value="yearly"
                        checked={plan === 'yearly'} onChange={() => setPlan('yearly')} />
-                Annuel
+                Annuel - 40€/an (-2 mois offerts)
               </label>
               <div className="actions">
                 <button className="btn btn--primary" disabled={busyPlan}>
