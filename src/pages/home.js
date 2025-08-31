@@ -1,3 +1,4 @@
+// src/pages/Home.jsx
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../assets/logo.png";
@@ -26,6 +27,33 @@ import {
 import { fr } from "date-fns/locale";
 
 import Connexion from "./connexion";
+/* ---------- Modal de confirmation ---------- */
+function ConfirmDialog({ open, title = "Confirmation", message, onCancel, onConfirm }) {
+  if (!open) return null;
+  return (
+    <div className="modal-backdrop" role="presentation" onClick={onCancel}>
+      <div
+        className="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="confirm-title"
+        aria-describedby="confirm-message"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="modal__header">
+          <h3 id="confirm-title">{title}</h3>
+        </div>
+        <div className="modal__body">
+          <p id="confirm-message">{message}</p>
+        </div>
+        <div className="modal__footer">
+          <button className="btn" onClick={onCancel}>Annuler</button>
+          <button className="btn btn--primary" onClick={onConfirm}>Confirmer</button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 /* ------------------ Utils (sans style) ------------------ */
 function toISODate(d) {
@@ -431,13 +459,20 @@ export default function Home() {
     const rows = await listPlants();
     setPlants(rows || []);
   }
+
+  const [confirmId, setConfirmId] = useState(null);
+
   async function onDelete(id) {
-    if (!window.confirm("Supprimer cette plante ?")) return;
+    
+    setConfirmId(id);
+  }
+  async function handleConfirmDelete(){
+    const id = confirmId;
+    setConfirmId(null);
     await deletePlant(id);
     const rows = await listPlants();
     setPlants(rows || []);
   }
-
   return (
     <div className="main_home_container">
       {/* états d’auth */}
@@ -515,13 +550,18 @@ export default function Home() {
 
             {err && <div className="error_text">{err}</div>}
           </div>
+                <ConfirmDialog
+        open={!!confirmId}
+        title="Supprimer la plante"
+        message="Est-tu sûr de vouloir supprimer cette plante ? Cette action est irréversible."
+        onCancel={() => setConfirmId(null)}
+        onConfirm={handleConfirmDelete}/>
         </>
       )}
+
     </div>
   );
 }
-
-
 
 
 
