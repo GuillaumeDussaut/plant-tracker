@@ -1,6 +1,7 @@
 // src/pages/inscription.js
 import React, { useMemo, useState } from 'react';
 import { signUpWithEmail } from '../callAPI/callAPI';
+import LOGO from '../assets/logo.png';
 
 function validateEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -78,6 +79,13 @@ export default function Inscription() {
       'div',
       { className: 'w-full max-w-md bg-white rounded-2xl shadow p-6' },
       // Titre
+      React.createElement('div', { className: 'logo_container'},
+         React.createElement('img', {
+        src: LOGO,
+        alt: 'PlantTracker Logo',
+        className: 'w-12 h-12 mb-4 mx-auto logo_offline'
+      }) 
+      ),
       React.createElement('h1', {
         className: 'text-2xl font-semibold mb-1',
         style: { color: 'var(--color-text, #222222)' }
